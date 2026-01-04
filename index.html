@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="/Stop_Lamp_1x4_Panel/data/css/all.min.css">
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STOP LAMP</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;}
+body{background:#f4f4f9;color:#000;}
+header {position: fixed;top: 0;left: 0;right: 0;background: #222;color: #fff;padding: 5px;text-align: center;font-size: 20px;font-weight: 700;letter-spacing: 1px;z-index: 100;border-bottom: 
+  3px solid #ff0000;}
+footer{position:fixed;bottom:0;left:0;right:0;background:#222;color:#fff;padding:5px;text-align:center;font-weight:700;border-top: 
+  2px solid #ff0000;border-bottom: 2px solid #ff0000;}
+main{padding:30px 20px 20px 20px;max-width:500px;margin:auto;}
+.card{background:#fff;padding:10px;border-radius:20px;box-shadow:0 2px 5px rgba(0,0,0,0.1);margin-bottom:20px;min-height:auto;display:flex;flex-direction:column;justify-content:flex-start;}
+input[type=text], input[type=number], select, input[type=password]{padding:10px;border-radius:5px;border:1px solid #ccc;font-size:16px;width:100%;margin-top:5px;}
+button {
+  padding: 8px 12px; /* lebih nyaman untuk klik */
+  background: linear-gradient(145deg, #686868, #535353);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+button:hover {
+  background: linear-gradient(145deg, #ffffff);
+  color: #0f0f0f;
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 12px rgba(0,0,0,0.3);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 1px 1px 5px rgba(65, 182, 19, 0.2);
+}
+.tab-bar{
+  display:flex;
+  gap:6px;
+  margin-bottom:15px;
+}
+
+.tab{
+  flex:1;
+  padding:10px 5px;
+  border:none;
+  border-radius:8px;
+  background:#222;
+  color:#b6b6b5;
+  font-size:13px;
+  cursor:pointer;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+}
+
+.tab i{
+  font-size:13px;
+}
+
+/* TAB AKTIF */
+.tab.active{
+  background:rgb(255, 3, 3);
+  color:#ffffff;
+}
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+  animation:softPop 0.35s cubic-bezier(.25,.8,.25,1);
+}
+
+@keyframes softPop{
+  from{
+    opacity:0;
+    transform:scale(0.97) translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:scale(1) translateY(0);
+  }
+}
+
+.row{display:flex;gap:5px;flex-wrap:wrap;}
+.row>*{flex:1;min-width:200px;}
+.flex{display:flex;gap:5px;}
+.flex>*{flex:1;}
+h3 {
+  font-size: 15px;
+}
+
+.kategori {
+  border: 1px dashed #a8a6a6;
+  padding: 5px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  background: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.kategori h3 {
+  margin: 0;
+  padding: 5px;
+  font-size: 15px;
+  color: #ff0000;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kategori h3::after {
+  content: "›";
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.kategori.open h3::after {
+  transform: rotate(90deg);
+}
+
+/* Animasi grid */
+.kategori .animGrid {
+  max-height: 0;
+  overflow: hidden;
+  margin-top: 5px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 5px 10px;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.kategori.open .animGrid {
+  max-height: 500px; /* sesuaikan jika kontennya lebih tinggi */
+  opacity: 1;
+}
+
+.animGrid label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 15px;
+}
+
+#progress{margin-top:15px;width:100%;height:18px;background:#ddd;border-radius:10px;overflow:hidden;display:none;}
+#bar{height:100%;width:0%;background:linear-gradient(90deg,#ff0000,#ff7a00,#ff0000);background-size:200% 100%;animation: progressMove 1s linear infinite;transition: width 0.2s ease;}
+@keyframes progressMove{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+.btn-row{
+  display:flex;
+  gap:12px;
+  margin-top:15px;
+}
+
+.btn{
+  flex:1;
+  padding:10px 0;
+  border:none;
+  border-radius:8px;
+  font-size:14px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+.btn i{
+  font-size:15px;
+}
+.btn-primary{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+
+  padding:8px 12px;
+  font-size:14px;
+  font-weight:600;
+
+  background:#131313;
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+
+  transition:0.2s ease;
+}
+
+.btn-primary:hover{
+  background:#ff0606;
+}
+
+/* Tombol Terapkan */
+.btn.apply{
+  background:rgb(111, 112, 111);
+  color:#ffffff;
+}
+
+.btn:hover{
+    background:#0f0;
+  color:#000;
+  opacity:.85;
+}
+.btn-row{
+  display:flex;
+  gap:10px;
+  width:100%;
+}
+
+.btn-row button{
+  width:100% !important;   /* paksa ikut lebar card */
+  flex:1 1 0;
+  box-sizing:border-box;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+
+  padding:8px 12px;
+  font-size:14px;
+  font-weight:600;
+
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+.btn-fw{
+  flex:1; /* ganti width:100% */
+  min-width:0; /* cegah overflow */
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+
+  padding:10px 14px;
+  font-size:15px;
+  font-weight:600;
+
+  background:#ca1010;
+  color:#fff;
+
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+
+  transition:0.2s ease;
+}
+.fw-row input[type="file"]{
+  flex:2;
+  min-width:0; /* PENTING */
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  background:#f9f9f9;
+}
+.fw-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  box-sizing:border-box;
+}
+
+@media(max-width:600px){
+  .fw-row{
+    flex-direction:column;
+  }
+
+  .btn-fw,
+  .fw-row input{
+    width:100%;
+  }
+}
+/* Modal overlay */
+.alert-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(3px); /* blur background */
+}
+
+/* Box alert */
+.alert-box {
+  padding: 20px 30px;
+  border-radius: 12px;
+  min-width: 280px;
+  max-width: 420px;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  transform: scale(0.8);
+  opacity: 0;
+  animation: fadeInScale 0.3s forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Button OK */
+.alert-box button {
+  margin-top: 18px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 8px;
+  background: #fff;
+  color: #333;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.alert-box button:hover {
+  background: #f0f0f0;
+  transform: scale(1.05);
+}
+
+/* Animasi muncul */
+@keyframes fadeInScale {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Animasi hilang */
+@keyframes fadeOutScale {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0; }
+}
+
+/* Tipe alert dengan gradient halus */
+.alert-success { background: linear-gradient(135deg, #4caf50, #66bb6a); }
+.alert-error   { background: linear-gradient(135deg, #f44336, #e57373); }
+.alert-warning { background: linear-gradient(135deg, #ff9800, #ffb74d); }
+.alert-info    { background: linear-gradient(135deg, #2196f3, #64b5f6); }
+
+/* Pesan teks */
+.alert-box span {
+  display: block;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+.flex-container {
+  display: flex;
+}
+
+.flex-item {
+  display: flex;
+  flex-direction: column;
+}
+.info-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.info-item{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+}
+
+.info-icon{
+  width:26px;              /* KUNCI: lebar ikon tetap */
+  text-align:center;
+  flex-shrink:0;
+}
+
+.info-text{
+  flex:1;
+  line-height:1.5;
+}
+@keyframes spiffsMove{
+  0%   { background-position:0% 50%; }
+  100% { background-position:200% 50%; }
+}
+.popup-modal{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-content{
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  animation: fadeIn 0.3s ease;
+}
+
+.popup-content h3{
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.popup-content label{
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.popup-content input{
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.popup-actions{
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+@keyframes fadeIn{
+  from {opacity: 0; transform: scale(0.9);}
+  to {opacity:1; transform: scale(1);}
+}
+
+</style>
+</head>
+<body>
+<div id="customAlert" class="alert-modal">
+  <div class="alert-box">
+    <span id="alertMessage">Pesan alert</span>
+    <button onclick="closeAlert()"><i class="fa-solid fa-check"></i> OK</button>
+  </div>
+</div>
+<header>MANAJEMEN PENGATURAN</header>
+<main>
+  
+<div class="tab">
+<div class="tab-bar">
+  <button class="tab active" onclick="openTab('displayTab', this)"><i class="fa-solid fa-eye"></i>Tampilan</button>
+  <button class="tab" onclick="openTab('wifiTab', this)"><i class="fa-solid fa-wifi"></i>WiFi</button>
+  <button class="tab" onclick="openTab('firmwareTab', this)"><i class="fa-solid fa-microchip"></i>Firmware</button>
+  <button class="tab" onclick="openTab('spiffsTab', this)"><i class="fa-solid fa-folder-open"></i>SPIFFS</button>
+  <button class="tab" onclick="openTab('infoTab', this)"><i class="fa-solid fa-circle-info"></i>Info</button>
+</div>
+</div>
+
+<div id="displayTab" class="section active card">
+  
+  <h3><i class="fa-solid fa-sliders"></i> Pengaturan Tampilan</h3>
+      <div class="row">
+      <input type="text" id="ledText" placeholder="Misal JEJAKRWC...">
+          <select id="effect">
+          <option value="0">Muncul Langsung</option>
+          <option value="1">Geser Horizontal</option>
+          <option value="2">Scroll Kiri</option>
+          <option value="3">Wipe / Bersih</option>
+          <option value="4">Scroll Atas Kiri</option>
+          <option value="5">Scroll Atas</option>
+          <option value="6">Mengetik / Cursor</option>
+          <option value="7">Tumbuh dari Bawah</option>
+          <option value="8">Mesh</option>
+          <option value="9">Scroll Atas Kanan</option>
+          <option value="10">Tirai / Blinds</option>
+          <option value="11">Hilang / Close</option>
+          <option value="12">Acak</option>
+          <option value="13">Tumbuh dari Atas</option>
+          <option value="14">Scan Vertikal</option>
+          <option value="15">Scroll Bawah Kiri</option>
+          <option value="16">Wipe + Cursor</option>
+          <option value="17">Larut / Dissolve</option>
+          <option value="18">Opening</option>
+          <option value="19">Hilang Cursor</option>
+          <option value="20">Scroll Bawah Kanan</option>
+          <option value="21">Scroll Kanan</option>
+          <option value="22">Slice</option>
+          <option value="23">Scroll Bawah</option>
+          </select>
+          </div>
+
+<div class="flex-container" style="margin-top:15px; gap:10px; flex-wrap: wrap; align-items: center;">
+  <div class="flex-item">
+    <label for="font" class="form-label">
+      <i class="fa-solid fa-font"></i> Huruf
+    </label>
+    <select id="font">
+      <option value="0">Tipis</option>
+      <option value="1">Tebal</option>
+      <option value="2">Sangat Tebal</option>
+    </select>
+  </div>
+
+  <div class="flex-item">
+    <label for="speed">Kecepatan (0–15)</label>
+    <input type="number" id="speed" min="0" max="15" placeholder="Misal 5">
+  </div>
+
+  <div class="flex-item">
+    <label for="intensity">Kecerahan (0–15)</label>
+    <input type="number" id="intensity" min="0" max="15"placeholder="Misal 5">
+  </div>
+</div>
+
+<div style="margin-top:15px;">
+  <h3 class="section-title">
+  <i class="fa-solid fa-tv"></i><label for="displayMode"> Mode Tampilan</label></h3>
+  <select id="displayMode">
+    <option value="0">Teks saja</option>
+    <option value="1">Teks + Animasi</option>
+    <option value="2">Animasi saja</option>
+  </select>
+</div>
+
+<div style="margin-top:15px;">
+  <h3 class="section-title">
+  <i class="fa-solid fa-lightbulb"></i> Mode Lampu Belakang</h3>
+  <div class="flex">
+    <!-- SEN KIRI -->
+    <div>
+      <label for="rearLeft">Kiri</label>
+      <select id="rearLeft">
+        <option value="1">Panah Kiri</option>
+        <option value="2">Panah Kanan</option>
+        <option value="21">Naik Turun (↑↓ berayun)</option>
+        <option value="22">Gerak Kanan</option>
+        <option value="23">Gerak Kiri</option>
+        <option value="24">Gerak Naik</option>
+        <option value="25">Gerak Turun</option>
+        <option value="26">Panah Pantul Kanan</option>
+        <option value="27">Panah Pantul Kiri</option>
+        <option value="28">Panah Geser Naik</option>
+        <option value="29">Panah Geser Turun</option>
+        <option value="30">Membesar ke Kanan</option>
+        <option value="31">Membesar ke Kiri</option>
+        <option value="32">Panah Berdenyut Naik</option>
+        <option value="33">Panah Berdenyut Turun</option>
+      </select>
+    </div>
+
+    <!-- REM -->
+    <div>
+      <label for="rearBrake">Rem</label>
+      <select id="rearBrake">
+        <option value="3">STOP Dasar</option>
+        <option value="48">STOP Octagon</option>
+        <option value="49">STOP Tombol Darurat</option>
+        <option value="50">STOP Emoji</option>
+        <option value="51">STOP Tangan</option>
+        <option value="52">STOP Segitiga</option>
+        <option value="53">STOP Scroll</option>
+        <option value="54">STOP Blink</option>
+        <option value="55">STOP Goyang</option>
+        <option value="56">STOP Flash Cepat</option>
+        <option value="57">STOP Outline Octagon</option>
+        <option value="58">STOP Zig-Zag</option>
+        <option value="59">STOP Wave</option>
+        <option value="60">STOP Kawanan</option>
+        <option value="61">STOP Kombinasi Lengkap</option>
+      </select>
+    </div>
+
+    <!-- HAZARD -->
+    <div>
+      <label for="rearHazard">Hazard</label>
+      <select id="rearHazard">
+        <option value="5">Hazard Kedip Semua</option>
+        <option value="62">Mudah Terbakar</option>
+        <option value="63">Ledakan</option>
+        <option value="64">Racun</option>
+        <option value="65">Korosif</option>
+        <option value="66">Listrik</option>
+        <option value="67">Bahaya Biologis</option>
+        <option value="68">Irritant (!)</option>
+        <option value="69">Bahaya Kesehatan</option>
+        <option value="70">Radioaktif</option>
+        <option value="71">Bahaya Lingkungan</option>
+        <option value="72">Licin / Jatuh</option>
+        <option value="73">Mesin Berbahaya</option>
+        <option value="74">Gas Bertekanan</option>
+        <option value="75">Suhu Tinggi</option>
+      </select>
+    </div>
+
+    <!-- SEN KANAN -->
+    <div>
+      <label for="rearRight">Kanan</label>
+      <select id="rearRight">
+        <option value="1">Panah Kiri</option>
+        <option value="2">Panah Kanan</option>
+        <option value="21">Naik Turun (↑↓ berayun)</option>
+        <option value="22">Gerak Kanan</option>
+        <option value="23">Gerak Kiri</option>
+        <option value="24">Gerak Naik</option>
+        <option value="25">Gerak Turun</option>
+        <option value="26">Panah Pantul Kanan</option>
+        <option value="27">Panah Pantul Kiri</option>
+        <option value="28">Panah Geser Naik</option>
+        <option value="29">Panah Geser Turun</option>
+        <option value="30">Membesar ke Kanan</option>
+        <option value="31">Membesar ke Kiri</option>
+        <option value="32">Panah Berdenyut Naik</option>
+        <option value="33">Panah Berdenyut Turun</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+
+<div style="margin-top:10px;">
+  <h3 class="section-title">
+  <i class="fa-solid fa-film"></i> Pilihan Animasi <small id="animCount" style="color:gray;font-weight:normal;font-style: italic;">(Total: 0)</small></h3>
+  <div id="animList" style="display:grid;grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));gap:5px;padding:10px;">
+  <!-- ANIMASI UMUM -->
+  <div class="kategori">
+    <h3>Animasi Umum</h3>
+    <div class="animGrid">
+    <label><input type="checkbox" class="animItem" value="0"> Pacman</label>
+    <label><input type="checkbox" class="animItem" value="7"> Bintang Berkilau</label>
+    <label><input type="checkbox" class="animItem" value="8"> Hujan</label>
+    <label><input type="checkbox" class="animItem" value="9"> Spektrum</label>
+    <label><input type="checkbox" class="animItem" value="10"> Salju</label>
+    <label><input type="checkbox" class="animItem" value="11"> Peringatan</label>
+    <label><input type="checkbox" class="animItem" value="12"> Baterai</label>
+    <label><input type="checkbox" class="animItem" value="13"> WiFi</label>
+    <label><input type="checkbox" class="animItem" value="14"> Loading</label>
+    <label><input type="checkbox" class="animItem" value="15"> Denyut Hati</label>
+    <label><input type="checkbox" class="animItem" value="16"> Berkilau</label>
+    <label><input type="checkbox" class="animItem" value="17"> Mata</label>
+    <label><input type="checkbox" class="animItem" value="18"> Api</label>
+    <label><input type="checkbox" class="animItem" value="19"> Bluetooth</label>
+    <label><input type="checkbox" class="animItem" value="20"> Balok Berdekatan</label>
+    <label><input type="checkbox" class="animItem" value="90"> Abstarck</label>
+    <label><input type="checkbox" class="animItem" value="91"> Spiral</label>
+    <label><input type="checkbox" class="animItem" value="92"> Gelombang</label>
+    <label><input type="checkbox" class="animItem" value="93"> Konfeti</label>
+    <label><input type="checkbox" class="animItem" value="94"> Kebisingan Acak</label>
+    <label><input type="checkbox" class="animItem" value="95"> Gulir Gradien</label>
+    <label><input type="checkbox" class="animItem" value="96"> Plasma</label>
+    <label><input type="checkbox" class="animItem" value="97"> Terowongan Gelombang</label>
+    <label><input type="checkbox" class="animItem" value="98"> Ledakan Partikel</label>
+    <label><input type="checkbox" class="animItem" value="99"> Papan main dam</label>
+    </div>
+  </div>
+  <!-- ARAH & GERAKAN -->
+  <div class="kategori">
+    <h3>Arah & Gerakan</h3>
+    <div class="animGrid">
+    <label><input type="checkbox" class="animItem" value="1"> Panah Kiri</label>
+    <label><input type="checkbox" class="animItem" value="2"> Panah Kanan</label>
+    <label><input type="checkbox" class="animItem" value="21"> Naik Turun (↑↓ berayun)</label>
+    <label><input type="checkbox" class="animItem" value="22"> Gerak Kanan</label>
+    <label><input type="checkbox" class="animItem" value="23"> Gerak Kiri</label>
+    <label><input type="checkbox" class="animItem" value="24"> Gerak Naik</label>
+    <label><input type="checkbox" class="animItem" value="25"> Gerak Turun</label>
+    <label><input type="checkbox" class="animItem" value="26"> Panah Pantul Kanan</label>
+    <label><input type="checkbox" class="animItem" value="27"> Panah Pantul Kiri</label>
+    <label><input type="checkbox" class="animItem" value="28"> Panah Geser Naik</label>
+    <label><input type="checkbox" class="animItem" value="29"> Panah Geser Turun</label>
+    <label><input type="checkbox" class="animItem" value="30"> Membesar ke Kanan</label>
+    <label><input type="checkbox" class="animItem" value="31"> Membesar ke Kiri</label>
+    <label><input type="checkbox" class="animItem" value="32"> Panah Berdenyut Naik</label>
+    <label><input type="checkbox" class="animItem" value="33"> Panah Berdenyut Turun</label>
+    </div>
+  </div>
+  <!-- HEWAN -->
+  <div class="kategori">
+    <h3>Animasi Hewan</h3>
+    <div class="animGrid">
+    <label><input type="checkbox" class="animItem" value="4"> Ikan Berenang</label>
+    <label><input type="checkbox" class="animItem" value="34"> Burung Terbang</label>
+    <label><input type="checkbox" class="animItem" value="35"> Kupu-kupu</label>
+    <label><input type="checkbox" class="animItem" value="36"> Ulat Merayap</label>
+    <label><input type="checkbox" class="animItem" value="37"> Katak Melompat</label>
+    <label><input type="checkbox" class="animItem" value="38"> Ular Melata</label>
+    <label><input type="checkbox" class="animItem" value="39"> Lebah Terbang</label>
+    <label><input type="checkbox" class="animItem" value="40"> Kepiting Berjalan</label>
+    <label><input type="checkbox" class="animItem" value="41"> Bebek Berenang</label>
+    <label><input type="checkbox" class="animItem" value="42"> Kura-kura Berjalan</label>
+    <label><input type="checkbox" class="animItem" value="43"> Sekolah Ikan</label>
+    <label><input type="checkbox" class="animItem" value="44"> Kuda Berlari</label>
+    <label><input type="checkbox" class="animItem" value="45"> Anjing Berjalan</label>
+    <label><input type="checkbox" class="animItem" value="46"> Kucing Bergerak</label>
+    <label><input type="checkbox" class="animItem" value="47"> Burung Hantu Berkedip</label>
+    </div>
+  </div>
+  <!-- LAINNYA & WAKTU -->
+  <div class="kategori">
+    <h3>Animasi Berhenti</h3>
+    <div class="animGrid">
+    <label><input type="checkbox" class="animItem" value="3"> STOP Dasar</label>
+    <label><input type="checkbox" class="animItem" value="48"> STOP Octagon</label>
+    <label><input type="checkbox" class="animItem" value="49"> STOP Tombol Darurat</label>
+    <label><input type="checkbox" class="animItem" value="50"> STOP Emoji</label>
+    <label><input type="checkbox" class="animItem" value="51"> STOP Tangan</label>
+    <label><input type="checkbox" class="animItem" value="52"> STOP Segitiga</label>
+    <label><input type="checkbox" class="animItem" value="53"> STOP Scroll</label>
+    <label><input type="checkbox" class="animItem" value="54"> STOP Blink</label>
+    <label><input type="checkbox" class="animItem" value="55"> STOP Goyang</label>
+    <label><input type="checkbox" class="animItem" value="56"> STOP Flash Cepat</label>
+    <label><input type="checkbox" class="animItem" value="57"> STOP Outline Octagon</label>
+    <label><input type="checkbox" class="animItem" value="58"> STOP Zig-Zag</label>
+    <label><input type="checkbox" class="animItem" value="59"> STOP Wave</label>
+    <label><input type="checkbox" class="animItem" value="60"> STOP Kawanan</label>
+    <label><input type="checkbox" class="animItem" value="61"> STOP Kombinasi Lengkap</label>
+
+    </div>
+  </div>
+<!-- ANIMASI HAZARD (Bahasa Indonesia) -->
+<div class="kategori">
+  <h3>Animasi Hazard</h3>
+  <div class="animGrid">
+    <label><input type="checkbox" class="animItem" value="5"> Hazard Kedip Semua</label>
+    <label><input type="checkbox" class="animItem" value="62"> Mudah Terbakar</label>
+    <label><input type="checkbox" class="animItem" value="63"> Ledakan</label>
+    <label><input type="checkbox" class="animItem" value="64"> Racun</label>
+    <label><input type="checkbox" class="animItem" value="65"> Korosif</label>
+    <label><input type="checkbox" class="animItem" value="66"> Listrik</label>
+    <label><input type="checkbox" class="animItem" value="67"> Bahaya Biologis</label>
+    <label><input type="checkbox" class="animItem" value="68"> Irritant (!)</label>
+    <label><input type="checkbox" class="animItem" value="69"> Bahaya Kesehatan</label>
+    <label><input type="checkbox" class="animItem" value="70"> Radioaktif</label>
+    <label><input type="checkbox" class="animItem" value="71"> Bahaya Lingkungan</label>
+    <label><input type="checkbox" class="animItem" value="72"> Licin / Jatuh</label>
+    <label><input type="checkbox" class="animItem" value="73"> Mesin Berbahaya</label>
+    <label><input type="checkbox" class="animItem" value="74"> Gas Bertekanan</label>
+    <label><input type="checkbox" class="animItem" value="75"> Suhu Tinggi</label>
+
+  </div>
+</div>
+  <!-- Rambu Lalu Lintas -->
+  <div class="kategori">
+    <h3>Rambu Lalu Lintas</h3>
+    <div class="animGrid">
+    <label><input type="checkbox" class="animItem" value="6"> Traffic Warning</label>
+    <label><input type="checkbox" class="animItem" value="76"> Red Light</label>
+    <label><input type="checkbox" class="animItem" value="77"> Yellow Light</label>
+    <label><input type="checkbox" class="animItem" value="78"> Green Light</label>
+    <label><input type="checkbox" class="animItem" value="79"> Red → Green Scroll</label>
+    <label><input type="checkbox" class="animItem" value="80"> Traffic Cycle</label>
+    <label><input type="checkbox" class="animItem" value="81"> Red Blink</label>
+    <label><input type="checkbox" class="animItem" value="82"> Yellow Blink</label>
+    <label><input type="checkbox" class="animItem" value="83"> Green Blink</label>
+    <label><input type="checkbox" class="animItem" value="84"> Left Arrow Red</label>
+    <label><input type="checkbox" class="animItem" value="85"> Left Arrow Green</label>
+    <label><input type="checkbox" class="animItem" value="86"> Right Arrow Red</label>
+    <label><input type="checkbox" class="animItem" value="87"> Right Arrow Green</label>
+    <label><input type="checkbox" class="animItem" value="88"> Pedestrian Red</label>
+    <label><input type="checkbox" class="animItem" value="89"> Pedestrian Green</label>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Modal Wajib Baca -->
+<div id="mustReadModal" class="popup-modal">
+  <div class="popup-content">
+    <div style="margin-top:10px; padding:15px; background:#f9f9f9; border:1px solid #ddd; border-radius:5px; font-size:14px; color:#555;">
+      <ul style="list-style:none; padding:0; margin:0;">
+        <li style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
+          <i class="fa-solid fa-keyboard" style="color:#007bff; width:20px; flex-shrink:0;"></i>
+          <span>Masukkan teks pada kolom <strong>LED Text</strong>.</span>
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
+          <i class="fa-solid fa-magic" style="color:#28a745; width:20px; flex-shrink:0;"></i>
+          <span>Pilih <strong>Efek</strong> untuk animasi teks.</span>
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
+          <i class="fa-solid fa-font" style="color:#ffc107; width:20px; flex-shrink:0;"></i>
+          <span>Tentukan <strong>Huruf, Kecepatan, dan Kecerahan</strong> sesuai kebutuhan.</span>
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
+          <i class="fa-solid fa-tv" style="color:#17a2b8; width:20px; flex-shrink:0;"></i>
+          <span>Pilih <strong>Mode Tampilan</strong> dan <strong>Mode Lampu Belakang</strong>.</span>
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
+          <i class="fa-solid fa-film" style="color:#fd7e14; width:20px; flex-shrink:0;"></i>
+          <span>Centang animasi yang ingin ditampilkan.</span>
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
+          <i class="fa-solid fa-check" style="color:#dc3545; width:20px; flex-shrink:0;"></i>
+          <span>Tekan <strong>Terapkan</strong> untuk melihat hasil di layar.</span>
+        </li>
+      </ul>
+    </div>
+    <div style="margin-top:15px; display:flex; justify-content:center; gap:15px;">
+      <button id="agreeBtn" style="padding:10px 20px; border:none; border-radius:8px; background:#28a745; color:#fff; font-weight:bold; cursor:pointer;">Setuju</button>
+      <button id="declineBtn" style="padding:10px 20px; border:none; border-radius:8px; background:#dc3545; color:#fff; font-weight:bold; cursor:pointer;">Tidak</button>
+    </div>
+  </div>
+</div>
+<div class="btn-row">
+<button class="btn apply" onclick="updateDisplay()"><i class="fa-solid fa-check"></i>Terapkan</button>
+</div>
+</div>
+
+<div id="wifiTab" class="section card">
+<h3>Pengaturan WiFi</h3>
+<!-- POPUP MODAL -->
+<div id="wifiPopup" class="popup-modal">
+  <div class="popup-content">
+    <h3><i class="fa-solid fa-wifi"></i> Pengaturan WiFi</h3>
+
+    <label>SSID Baru:</label>
+    <input type="text" id="wifiSSID" placeholder="Nama WiFi">
+
+    <label>Kata Sandi Baru:</label>
+    <input type="password" id="wifiPass" placeholder="Minimal 8 karakter">
+
+    <div class="popup-actions">
+      <button class="btn-secondary" onclick="closeWiFiPopup()">Batal</button>
+      <button class="btn-primary" onclick="updateWiFi()">
+        <i class="fa-solid fa-paper-plane"></i> Simpan
+      </button>
+    </div>
+  </div>
+</div>
+
+<div style="font-size:14px; line-height:1.6; color:#444; max-width:650px;">
+  <strong>Panduan Pengaturan WiFi:</strong>
+  <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
+
+    <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:8px; background:#e6f0ff;">
+      <i class="fa-solid fa-wifi" style="color:#007bff; font-size:24px;"></i>
+      <span>Masukkan <b>SSID WiFi baru</b> yang ingin digunakan oleh perangkat.</span>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:8px; background:#fff4e6;">
+      <i class="fa-solid fa-key" style="color:#ff9500; font-size:24px;"></i>
+      <span>Masukkan <b>Kata Sandi WiFi</b> (minimal 8 karakter).</span>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:8px; background:#e6fff9;">
+      <i class="fa-solid fa-paper-plane" style="color:#009688; font-size:24px;"></i>
+      <span>Klik tombol <b>Atur WiFi</b> untuk mengirim pengaturan ke perangkat.</span>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:8px; background:#f0f7ff;">
+      <i class="fa-solid fa-shield-check" style="color:#3f51b5; font-size:24px;"></i>
+      <span>Perangkat akan <b>memvalidasi data</b> dan menyimpan konfigurasi WiFi.</span>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:8px; background:#fff9e6;">
+      <i class="fa-solid fa-spinner" style="color:#ffbf00; font-size:24px;"></i>
+      <span>Access Point akan <b>restart otomatis</b>. Silakan sambungkan kembali ke WiFi baru.</span>
+    </div>
+<!-- Tombol untuk buka popup -->
+<button class="btn-primary" onclick="openWiFiPopup()">
+  <i class="fa-solid fa-wifi"></i> Atur WiFi
+</button>
+  </div>
+</div>
+</div>
+
+<div id="infoTab" class="section card">
+
+  <h3 style="margin-bottom:12px;">
+    <i class="fa-solid fa-list-check"></i>
+    Fitur & Fungsi Sistem
+  </h3>
+
+  <!-- FITUR UTAMA -->
+<div class="kategori open">
+  <h3>Fitur Utama</h3>
+  <div class="animGrid info-list" style="opacity:1; max-height:500px;">
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-lightbulb"></i></span>
+      <span class="info-text">Kontrol tampilan LED Matrix (teks & animasi)</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-sliders"></i></span>
+      <span class="info-text">Pengaturan efek, font, kecepatan, dan kecerahan</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-film"></i></span>
+      <span class="info-text">Mode teks, animasi, atau kombinasi</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-car"></i></span>
+      <span class="info-text">Kontrol lampu belakang (Sen, Rem, Hazard)</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-palette"></i></span>
+      <span class="info-text">Multi animasi custom sesuai pilihan pengguna</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-globe"></i></span>
+      <span class="info-text">Berbasis Web (tanpa aplikasi tambahan)</span>
+    </div>
+
+  </div>
+</div>
+
+  <!-- WIFI -->
+  <div class="kategori">
+    <h3>Manajemen WiFi</h3>
+    <div class="animGrid info-list">
+
+      <div class="info-item">
+        <span class="info-icon">📡</span>
+        <span class="info-text">Pengaturan SSID dan Password Access Point</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">🔐</span>
+        <span class="info-text">Validasi password minimal 8 karakter</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">🔄</span>
+        <span class="info-text">Restart Access Point otomatis setelah update</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">💾</span>
+        <span class="info-text">Konfigurasi WiFi disimpan ke memori</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FIRMWARE -->
+  <div class="kategori">
+    <h3>Firmware & Sistem</h3>
+    <div class="animGrid info-list">
+
+      <div class="info-item">
+        <span class="info-icon">⚙</span>
+        <span class="info-text">Pembaruan firmware melalui browser (.bin)</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">📁</span>
+        <span class="info-text">Upload SPIFFS melalui Web UI</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">📊</span>
+        <span class="info-text">Progress upload ditampilkan secara real-time</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">🔁</span>
+        <span class="info-text">Perangkat restart otomatis setelah update</span>
+      </div>
+
+    </div>
+  </div>
+
+  
+  <!-- CARA KERJA -->
+  <div class="kategori">
+    <h3>Alur Kerja Sistem</h3>
+    <div class="animGrid info-list">
+
+      <div class="info-item">
+        <span class="info-icon">①</span>
+        <span class="info-text">Pengguna membuka Web UI ESP8266</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">②</span>
+        <span class="info-text">Mengatur tampilan, animasi, dan fungsi lampu</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">③</span>
+        <span class="info-text">Data dikirim ke perangkat melalui HTTP POST</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">④</span>
+        <span class="info-text">ESP memproses dan menyimpan konfigurasi</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">⑤</span>
+        <span class="info-text">Perubahan diterapkan secara real-time</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- INFO TEKNIS -->
+  <div class="kategori">
+    <h3>Informasi Teknis</h3>
+    <div class="animGrid info-list">
+
+      <div class="info-item">
+        <span class="info-icon">🔧</span>
+        <span class="info-text">Mikrokontroler : ESP8266 (NodeMCU / ESP-12)</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">💡</span>
+        <span class="info-text">Output : LED Matrix dan Panel Lampu</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">🌐</span>
+        <span class="info-text">Antarmuka : HTML, CSS, dan JavaScript</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">📡</span>
+        <span class="info-text">Web Server : Async Web Server</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">💾</span>
+        <span class="info-text">Penyimpanan : SPIFFS</span>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<div id="firmwareTab" class="section card">
+  <div style="font-size:13px; line-height:1.5; margin-bottom:10px; color:#444;">
+    <strong>Panduan Update Firmware:</strong>
+<div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px; max-width: 600px;">
+
+  <div style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; background: #e6f0ff;">
+    <i class="fa-solid fa-plug" style="color: #007bff; font-size: 24px;"></i>
+    <span>Pastikan perangkat <b>ESP8266</b> dalam kondisi menyala dan terhubung ke jaringan.</span>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; background: #fff4e6;">
+    <i class="fa-solid fa-file" style="color: #ff9500; font-size: 24px;"></i>
+    <span>Gunakan file firmware dengan format <b>.bin</b> yang sesuai dengan perangkat.</span>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; background: #f0e6ff;">
+    <i class="fa-solid fa-folder-open" style="color: #8000ff; font-size: 24px;"></i>
+    <span>Klik tombol <b>Pilih File</b>, lalu pilih file firmware dari perangkat Anda.</span>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; background: #e6fff9;">
+    <i class="fa-solid fa-upload" style="color: #009688; font-size: 24px;"></i>
+    <span>Setelah file dipilih, klik tombol <b>Update Firmware</b>.</span>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; background: #fff9e6;">
+    <i class="fa-solid fa-spinner" style="color: #ffbf00; font-size: 24px;"></i>
+    <span>Tunggu proses upload hingga progress mencapai <b>100%</b>.</span>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; background: #ffe6e6;">
+    <i class="fa-solid fa-hand-paper" style="color: #ff3b30; font-size: 24px;"></i>
+    <span>Jangan menutup halaman atau mematikan perangkat selama proses berlangsung.</span>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; background: #e6ffe6;">
+    <i class="fa-solid fa-rotate-right" style="color: #28a745; font-size: 24px;"></i>
+    <span>Perangkat akan <b>restart otomatis</b> setelah update selesai.</span>
+  </div>
+</div>
+
+
+<div style="margin-top:5px; padding:10px; background:#fff3cd; border-left:4px solid #ffc107; display:flex; align-items:center; gap:8px;">
+  <i class="fas fa-exclamation-triangle" style="color:#856404;"></i>
+  <div>
+    <b>Peringatan:</b>  
+    Gagal upload atau memutus daya saat proses berlangsung dapat menyebabkan firmware rusak.
+  </div>
+</div>
+
+    </div>
+<div class="fw-row">
+  <input type="file" id="firmware" accept=".bin">
+  <button id="fwBtn" class="btn-fw" onclick="uploadFirmware()">
+    <i class="fa-solid fa-upload"></i>
+    <span>Update Firmware</span>
+  </button>
+</div>
+    <div id="progress">
+    <div id="bar"></div>
+    </div><p id="fwStatus" style="margin-top:8px;font-size:13px;"></p>
+    </div>
+
+<div id="spiffsTab" class="section card">
+  <!-- PANDUAN -->
+  <div style="font-size:14px; line-height:1.6; color:#444; max-width:650px;">
+    <strong>Panduan Upload SPIFFS:</strong>
+
+    <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
+
+      <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:8px; background:#fff4e6;">
+        <i class="fa-solid fa-file" style="color:#ff9500; font-size:24px;"></i>
+        <span>Pilih file SPIFFS dengan format <b>.spiffs.bin</b>.</span>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:8px; background:#e6f0ff;">
+        <i class="fa-solid fa-upload" style="color:#007bff; font-size:24px;"></i>
+        <span>Klik tombol <b>Upload SPIFFS</b> untuk memulai.</span>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:8px; background:#fff9e6;">
+        <i class="fa-solid fa-spinner" style="color:#ffbf00; font-size:24px;"></i>
+        <span>Tunggu proses hingga <b>100%</b>.</span>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:8px; background:#e6ffe6;">
+        <i class="fa-solid fa-rotate-right" style="color:#28a745; font-size:24px;"></i>
+        <span>ESP8266 akan <b>restart otomatis</b> setelah selesai.</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FILE + BUTTON -->
+  <div class="fw-row" style="margin-top:15px;">
+    <input type="file" id="spiffsFile" accept=".spiffs.bin">
+    <button id="spiffsBtn" class="btn-fw" onclick="uploadSPIFFS()">
+      <i class="fa-solid fa-database"></i>
+      <span>Upload SPIFFS</span>
+    </button>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div id="spiffsProgress" style="display:none; margin-top:15px;">
+    <div style="
+      width:100%;
+      height:18px;
+      background:#ddd;
+      border-radius:10px;
+      overflow:hidden;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+    ">
+      <div id="spiffsBar" style="
+        height:100%;
+        width:0%;
+        background:linear-gradient(90deg,#ff0000,#ff7a00,#ff0000);
+        background-size:200% 100%;
+        animation: spiffsMove 1s linear infinite;
+        transition: width 0.2s ease;
+      "></div>
+    </div>
+  </div>
+
+  <!-- STATUS -->
+  <p id="spiffsStatus" style="
+    margin-top:8px;
+    font-size:13px;
+    font-weight:600;
+    color:#444;
+  "></p>
+
+</div>
+
+
+</main>
+<footer>ESP8266 JEJAKRWC</footer>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const categories = document.querySelectorAll(".kategori");
+  categories.forEach(cat => {
+    const header = cat.querySelector("h3");
+    header.addEventListener("click", () => {
+      categories.forEach(other => {
+        if (other !== cat) {
+          other.classList.remove("open");
+        }
+      });
+      cat.classList.toggle("open");
+    });
+  });
+});
+function openWiFiPopup() {
+  document.getElementById("wifiPopup").style.display = "flex";
+}
+
+function closeWiFiPopup() {
+  document.getElementById("wifiPopup").style.display = "none";
+}
+
+function showAlert(message, type = "info") {
+  const alertModal = document.getElementById("customAlert");
+  const alertBox = alertModal.querySelector(".alert-box");
+  const alertMessage = document.getElementById("alertMessage");
+
+  alertMessage.textContent = message;
+
+  // Hapus semua kelas tipe alert sebelumnya
+  alertBox.classList.remove("alert-success","alert-error","alert-warning","alert-info");
+  // Tambahkan kelas tipe alert baru
+  alertBox.classList.add(`alert-${type}`);
+
+  alertModal.style.display = "flex";
+}
+
+function closeAlert() {
+  document.getElementById("customAlert").style.display = "none";
+}
+  /*Penghitung jumlah animasi*/
+    function updateAnimCount() {
+    const total = document.querySelectorAll('.animItem').length;
+    document.getElementById('animCount').textContent = `(Total animasi: ${total})`;}
+    window.addEventListener('DOMContentLoaded', updateAnimCount);
+  /*readme*/
+const modal = document.getElementById('mustReadModal');
+const agreeBtn = document.getElementById('agreeBtn');
+const declineBtn = document.getElementById('declineBtn');
+
+// Modal selalu tampil saat halaman dibuka
+modal.style.display = 'flex';
+
+agreeBtn.addEventListener('click', () => {
+  // Bisa tetap simpan di localStorage kalau mau
+  localStorage.setItem('userAgreed', 'true'); 
+  modal.style.display = 'none'; // tutup modal saat setuju
+});
+
+declineBtn.addEventListener('click', () => {
+  alert('Anda harus membaca petunjuk terlebih dahulu untuk melanjutkan.');
+  // Bisa tambah aksi lain, misal reload atau redirect
+});
+
+    /*Perintah upload firmware*/
+function uploadFirmware(){
+  const fileInput = document.getElementById("firmware");
+  const file = fileInput.files[0];
+  const btn = document.getElementById("fwBtn");
+  const bar = document.getElementById("bar");
+  const progress = document.getElementById("progress");
+  const status = document.getElementById("fwStatus");
+
+  if(!file){
+    showAlert("Pilih file firmware (.bin)", "warning"); // custom alert
+    return;
+  }
+  const xhr = new XMLHttpRequest();
+  const formData = new FormData();
+  formData.append("update", file);
+  xhr.open("POST", "/update", true);
+  // 🔒 DISABLE INPUT SAAT UPLOAD
+  fileInput.disabled = true;
+  btn.disabled = true;
+  btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Uploading...`;
+  progress.style.display = "block";
+  bar.style.width = "0%";
+  status.innerText = "Mengunggah firmware...";
+  xhr.upload.onprogress = function(e){
+    if(e.lengthComputable){
+      let p = Math.round((e.loaded / e.total) * 100);
+      bar.style.width = p + "%";
+      status.innerText = "Upload: " + p + "%";
+    }
+  };
+  xhr.onload = function(){
+    if(xhr.status === 200){
+      bar.style.width = "100%";
+      status.innerText = "Selesai! Perangkat restart...";
+      showAlert("Firmware berhasil diupload! Perangkat akan restart.", "success");
+      // ⛔ JANGAN aktifkan kembali (ESP restart)
+    }else{
+      uploadFailed("Update gagal!");
+    }
+  };
+  xhr.onerror = function(){
+    uploadFailed("Koneksi terputus!");
+  };
+  xhr.send(formData);
+  function uploadFailed(msg){
+    status.innerText = msg;
+    showAlert(msg, "error"); // custom alert
+    fileInput.disabled = false;
+    btn.disabled = false;
+    btn.innerHTML = `<i class="fa-solid fa-upload"></i> Update Firmware`;
+  }
+}
+function uploadSPIFFS(){
+  const fileInput = document.getElementById("spiffsFile");
+  const file = fileInput.files[0];
+  const btn = document.getElementById("spiffsBtn");
+  const bar = document.getElementById("spiffsBar");
+  const progress = document.getElementById("spiffsProgress");
+  const status = document.getElementById("spiffsStatus");
+
+  if(!file){
+    showAlert("Pilih file SPIFFS (.spiffs.bin)", "warning");
+    return;
+  }
+
+  // 🔐 Validasi file
+  if(!file.name.endsWith(".spiffs.bin")){
+    showAlert("File tidak valid!\nGunakan file *.spiffs.bin", "error");
+    return;
+  }
+
+  const xhr = new XMLHttpRequest();
+  const formData = new FormData();
+  formData.append("update", file);
+
+  xhr.open("POST", "/updateSpiffs", true);
+
+  // 🔒 Lock UI
+  btn.disabled = true;
+  fileInput.disabled = true;
+  btn.innerHTML = "Uploading...";
+  progress.style.display = "block";
+  bar.style.width = "0%";
+  status.innerText = "Mengunggah SPIFFS...";
+
+  xhr.upload.onprogress = e=>{
+    if(e.lengthComputable){
+      const p = Math.min(100, Math.round((e.loaded / e.total) * 100));
+      bar.style.width = p + "%";
+      status.innerText = "Upload: " + p + "%";
+    }
+  };
+
+  xhr.onload = ()=>{
+    if(xhr.status === 200){
+      bar.style.width = "100%";
+      status.innerText = "SPIFFS berhasil! ESP restart...";
+      showAlert("SPIFFS berhasil diupload! Perangkat akan restart.", "success");
+    }else{
+      uploadFailed("Upload SPIFFS gagal!");
+    }
+  };
+
+  xhr.onerror = ()=>{
+    uploadFailed("Koneksi terputus!");
+  };
+
+  xhr.send(formData);
+
+  function uploadFailed(msg){
+    status.innerText = msg;
+    showAlert(msg, "error");
+    resetUI();
+  }
+
+  function resetUI(){
+    btn.disabled = false;
+    fileInput.disabled = false;
+    btn.innerHTML = `<i class="fa-solid fa-database"></i> Upload SPIFFS`;
+  }
+}
+
+
+function kirimAnimasi() {
+  let selected = [];
+  document.querySelectorAll(".animItem:checked").forEach(item => selected.push(item.value));
+
+  fetch("/setAnimList", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: "list=" + encodeURIComponent(selected.join(","))
+  })
+  .then(r => r.text())
+  .then(t => console.log("ESP:", t))
+  .catch(err => console.log("ERR:", err));
+}
+
+function openTab(tabId, elem){
+  document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+  document.querySelectorAll('.tab button').forEach(btn=>btn.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  elem.classList.add('active');
+}
+
+function loadCurrentSettings(){
+  fetch('/getSettings')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('ledText').value = data.displayText;
+    document.getElementById('effect').value = data.effect;
+    document.getElementById('font').value = data.font;
+    document.getElementById('speed').value = data.speed;
+    document.getElementById('intensity').value = data.intensity;
+    document.getElementById('displayMode').value = data.mode;
+    document.getElementById('wifiSSID').value = data.ssid;
+    document.getElementById('wifiPass').value = data.password;
+
+    // Set checkbox animasi sesuai data.animasi dari ESP
+    if(data.animasi){
+      document.querySelectorAll(".animItem").forEach(cb => cb.checked = false);
+      data.animasi.split(",").forEach(val => {
+        let cb = document.querySelector(`.animItem[value='${val}']`);
+        if(cb) cb.checked = true;
+      });
+    }
+  });
+}
+
+
+function updateDisplay(){
+  const data = new URLSearchParams();
+
+  // === Pengaturan Teks & Tampilan ===
+  data.append('value', document.getElementById('ledText').value);
+  data.append('effect', document.getElementById('effect').value);
+  data.append('font', document.getElementById('font').value);
+  data.append('speed', document.getElementById('speed').value);
+  data.append('intensity', document.getElementById('intensity').value);
+  data.append('mode', document.getElementById('displayMode').value);
+  data.append('rearLeft', document.getElementById('rearLeft').value);   // drop-down kiri
+  data.append('rearRight', document.getElementById('rearRight').value); // drop-down kanan
+  data.append('rearBrake', document.getElementById('rearBrake').value); // Stop / rem
+  data.append('rearHazard', document.getElementById('rearHazard').value); // Hazard / Hati-hati
+
+
+  // Kirim ke ESP
+  fetch('/setDisplay', { method:'POST', body: data })
+    .then(res => {
+        console.log("Display & rear lamp updated");
+        kirimAnimasi(); // kirim animasi user setelah display
+    })
+    .catch(err => console.log("Error updating display:", err));
+}
+
+
+function updateWiFi(){
+  const ssid = wifiSSID.value.trim();
+  const pass = wifiPass.value;
+
+  if(ssid.length < 1){
+    showAlert("SSID tidak boleh kosong", "warning");
+    return;
+  }
+  if(pass.length < 8){
+    showAlert("Password minimal 8 karakter", "warning");
+    return;
+  }
+
+  const data = new URLSearchParams();
+  data.append('ssid', ssid);
+  data.append('pass', pass);
+
+  fetch('/setWiFi',{method:'POST',body:data})
+    .then(()=>showAlert("WiFi updated, ESP restart!", "success"));
+}
+
+
+
+window.onload = loadCurrentSettings;
+</script>
+</body>
+</html>
