@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="/Stop_Lamp_1x4_Panel/data/css/all.min.css">
 
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>STOP LAMP</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;font-size: 13px;font-family: 'Avenir', 'Helvetica Neue', 'SF Pro', system-ui, sans-serif;
+}
 body{background:#f4f4f9;color:#000;}
 header {position: fixed;top: 0;left: 0;right: 0;background: #222;color: #fff;padding: 5px;text-align: center;font-size: 20px;font-weight: 700;letter-spacing: 1px;z-index: 100;border-bottom: 
   3px solid #ff0000;}
 footer{position:fixed;bottom:0;left:0;right:0;background:#222;color:#fff;padding:5px;text-align:center;font-weight:700;border-top: 
   2px solid #ff0000;border-bottom: 2px solid #ff0000;}
-main{padding:30px 20px 20px 20px;max-width:500px;margin:auto;}
+main{padding:40px 20px 20px 20px;max-width:450px;margin:auto;}
 .card{background:#fff;padding:10px;border-radius:20px;box-shadow:0 2px 5px rgba(0,0,0,0.1);margin-bottom:20px;min-height:auto;display:flex;flex-direction:column;justify-content:flex-start;}
 input[type=text], input[type=number], select, input[type=password]{padding:10px;border-radius:5px;border:1px solid #ccc;font-size:16px;width:100%;margin-top:5px;}
 button {
@@ -42,22 +43,46 @@ button:active {
   transform: translateY(1px);
   box-shadow: 1px 1px 5px rgba(65, 182, 19, 0.2);
 }
+/* LOGO */
+.tab-logo{
+  padding:8px 12px;
+  border-right:0.1px solid #ddd;
+  display:flex;
+  align-items:center;
+}
+
+.logo-text{
+  font-size:20px;
+  font-weight:800;
+  color:#2d7c2d;
+  letter-spacing:.5px;
+}
+
+.logo-text span{
+  color:#97a597;
+}
+/* SUBTITLE */
+.logo-subtitle{
+  font-size:11px;
+  color:#ffffff;
+  font-weight:500;
+}
+/* TAB MENU */
 .tab-bar{
   display:flex;
   gap:6px;
-  margin-bottom:15px;
+  margin-bottom:5px;
 }
 
 .tab{
   flex:1;
   padding:10px 5px;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
   background:#222;
-  color:#b6b6b5;
-  font-size:13px;
+  color:#ffffff;
+  font-size:12px;
   cursor:pointer;
-
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -65,14 +90,15 @@ button:active {
 }
 
 .tab i{
-  font-size:13px;
+  font-size:20px;
 }
 
-/* TAB AKTIF */
+/* TAB MENU AKTIF */
 .tab.active{
-  background:rgb(255, 3, 3);
+  background:rgb(4, 145, 63);
   color:#ffffff;
 }
+/* SECTION ANIMASI CARD */
 .section{
   display:none;
 }
@@ -92,11 +118,13 @@ button:active {
     transform:scale(1) translateY(0);
   }
 }
-
-.row{display:flex;gap:5px;flex-wrap:wrap;}
-.row>*{flex:1;min-width:200px;}
+/* ROW TEKS DAN EFEK */
+.row{display:flex;gap:8px;flex-wrap:wrap;}
+.row>*{flex:1;min-width:100px;}
+/* KOLOM */
 .flex{display:flex;gap:5px;}
 .flex>*{flex:1;}
+/* KATEGORI PILIHAN ANIMASI */
 h3 {
   font-size: 15px;
 }
@@ -121,7 +149,9 @@ h3 {
   justify-content: space-between;
   align-items: center;
 }
-
+.kategori h3 i{
+  color:#0b9b23;
+}
 .kategori h3::after {
   content: "›";
   font-weight: bold;
@@ -148,17 +178,17 @@ h3 {
   max-height: 500px; /* sesuaikan jika kontennya lebih tinggi */
   opacity: 1;
 }
-
 .animGrid label {
   display: flex;
   align-items: center;
   gap: 5px;
   font-size: 15px;
 }
-
+/* ANIMASI PROGRESS UPLOAD */
 #progress{margin-top:15px;width:100%;height:18px;background:#ddd;border-radius:10px;overflow:hidden;display:none;}
 #bar{height:100%;width:0%;background:linear-gradient(90deg,#ff0000,#ff7a00,#ff0000);background-size:200% 100%;animation: progressMove 1s linear infinite;transition: width 0.2s ease;}
 @keyframes progressMove{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+/* TOMBOL-TOMBOL */
 .btn-row{
   display:flex;
   gap:12px;
@@ -215,6 +245,7 @@ h3 {
   color:#000;
   opacity:.85;
 }
+/* TOMBOL UPLOAD */
 .btn-row{
   display:flex;
   gap:10px;
@@ -287,7 +318,7 @@ h3 {
     width:100%;
   }
 }
-/* Modal overlay */
+/* ALERT */
 .alert-modal {
   position: fixed;
   inset: 0;
@@ -366,6 +397,7 @@ h3 {
   display: flex;
   flex-direction: column;
 }
+/* CSS TAB INFO */
 .info-list{
   display:flex;
   flex-direction:column;
@@ -441,6 +473,15 @@ h3 {
   from {opacity: 0; transform: scale(0.9);}
   to {opacity:1; transform: scale(1);}
 }
+/* CSS LOGO,SUBTITTLE MOBILE */
+@media(max-width:600px){
+  .logo-text{
+    font-size:15px;
+  }
+  .logo-subtitle{
+    font-size:12px;
+  }
+}
 
 </style>
 </head>
@@ -451,11 +492,20 @@ h3 {
     <button onclick="closeAlert()"><i class="fa-solid fa-check"></i> OK</button>
   </div>
 </div>
-<header>MANAJEMEN PENGATURAN</header>
+<header class="phpmu-header">
+  <div class="header-title">MANAJEMEN PENGATURAN</div>
+</header>
+
 <main>
   
 <div class="tab">
 <div class="tab-bar">
+<div class="tab-logo">
+  <div class="logo-wrap">
+    <div class="logo-text">JEJAK<span>RWC</span></div>
+    <div class="logo-subtitle">Management Panel</div>
+  </div>
+</div>
   <button class="tab active" onclick="openTab('displayTab', this)"><i class="fa-solid fa-eye"></i>Tampilan</button>
   <button class="tab" onclick="openTab('wifiTab', this)"><i class="fa-solid fa-wifi"></i>WiFi</button>
   <button class="tab" onclick="openTab('firmwareTab', this)"><i class="fa-solid fa-microchip"></i>Firmware</button>
@@ -472,11 +522,11 @@ h3 {
           <select id="effect">
           <option value="0">Muncul Langsung</option>
           <option value="1">Geser Horizontal</option>
-          <option value="2">Scroll Kiri</option>
-          <option value="3">Wipe / Bersih</option>
-          <option value="4">Scroll Atas Kiri</option>
-          <option value="5">Scroll Atas</option>
-          <option value="6">Mengetik / Cursor</option>
+          <option value="2">Gulir Kiri</option>
+          <option value="3">Bersihkan</option>
+          <option value="4">Gulir ke Atas Kiri</option>
+          <option value="5">Gulir Atas</option>
+          <option value="6">Mengetik</option>
           <option value="7">Tumbuh dari Bawah</option>
           <option value="8">Mesh</option>
           <option value="9">Scroll Atas Kanan</option>
@@ -497,8 +547,8 @@ h3 {
           </select>
           </div>
 
-<div class="flex-container" style="margin-top:15px; gap:10px; flex-wrap: wrap; align-items: center;">
-  <div class="flex-item">
+<div class="flex-container" style="margin-top:15px; display:flex; gap:10px; box-sizing:border-box;">
+  <div class="flex-item" style="flex:1; display:flex; flex-direction:column; box-sizing:border-box;">
     <label for="font" class="form-label">
       <i class="fa-solid fa-font"></i> Huruf
     </label>
@@ -509,16 +559,23 @@ h3 {
     </select>
   </div>
 
-  <div class="flex-item">
-    <label for="speed">Kecepatan (0–15)</label>
+  <div class="flex-item" style="flex:1; display:flex; flex-direction:column; box-sizing:border-box;">
+    <label for="speed">
+      <i class="fa-solid fa-rocket"></i> Kecepatan (0–15)
+    </label>
     <input type="number" id="speed" min="0" max="15" placeholder="Misal 5">
   </div>
 
-  <div class="flex-item">
-    <label for="intensity">Kecerahan (0–15)</label>
-    <input type="number" id="intensity" min="0" max="15"placeholder="Misal 5">
+  <div class="flex-item" style="flex:1; display:flex; flex-direction:column; box-sizing:border-box;">
+    <label for="intensity">
+      <i class="fa-solid fa-sun"></i> Kecerahan (0–15)
+    </label>
+    <input type="number" id="intensity" min="0" max="15" placeholder="Misal 5">
   </div>
 </div>
+
+
+
 
 <div style="margin-top:15px;">
   <h3 class="section-title">
@@ -632,7 +689,7 @@ h3 {
   <div id="animList" style="display:grid;grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));gap:5px;padding:10px;">
   <!-- ANIMASI UMUM -->
   <div class="kategori">
-    <h3>Animasi Umum</h3>
+    <h3><i class="fa-solid fa-shapes"></i> Animasi Umum</h3>
     <div class="animGrid">
     <label><input type="checkbox" class="animItem" value="0"> Pacman</label>
     <label><input type="checkbox" class="animItem" value="7"> Bintang Berkilau</label>
@@ -663,7 +720,7 @@ h3 {
   </div>
   <!-- ARAH & GERAKAN -->
   <div class="kategori">
-    <h3>Arah & Gerakan</h3>
+    <h3><i class="fas fa-exchange-alt"></i> Arah & Gerakan</h3>
     <div class="animGrid">
     <label><input type="checkbox" class="animItem" value="1"> Panah Kiri</label>
     <label><input type="checkbox" class="animItem" value="2"> Panah Kanan</label>
@@ -684,7 +741,7 @@ h3 {
   </div>
   <!-- HEWAN -->
   <div class="kategori">
-    <h3>Animasi Hewan</h3>
+    <h3><i class="fa-solid fa-paw"></i> Animasi Hewan</h3>
     <div class="animGrid">
     <label><input type="checkbox" class="animItem" value="4"> Ikan Berenang</label>
     <label><input type="checkbox" class="animItem" value="34"> Burung Terbang</label>
@@ -705,7 +762,8 @@ h3 {
   </div>
   <!-- LAINNYA & WAKTU -->
   <div class="kategori">
-    <h3>Animasi Berhenti</h3>
+    <h3><i class="fa-solid fa-hand"></i> Animasi Berhenti</h3>
+
     <div class="animGrid">
     <label><input type="checkbox" class="animItem" value="3"> STOP Dasar</label>
     <label><input type="checkbox" class="animItem" value="48"> STOP Octagon</label>
@@ -727,7 +785,8 @@ h3 {
   </div>
 <!-- ANIMASI HAZARD (Bahasa Indonesia) -->
 <div class="kategori">
-  <h3>Animasi Hazard</h3>
+  <h3><i class="fa-solid fa-triangle-exclamation"></i> Animasi Hazard</h3>
+
   <div class="animGrid">
     <label><input type="checkbox" class="animItem" value="5"> Hazard Kedip Semua</label>
     <label><input type="checkbox" class="animItem" value="62"> Mudah Terbakar</label>
@@ -749,7 +808,8 @@ h3 {
 </div>
   <!-- Rambu Lalu Lintas -->
   <div class="kategori">
-    <h3>Rambu Lalu Lintas</h3>
+    <h3><i class="fa-solid fa-traffic-light"></i> Rambu Lalu Lintas</h3>
+
     <div class="animGrid">
     <label><input type="checkbox" class="animItem" value="6"> Traffic Warning</label>
     <label><input type="checkbox" class="animItem" value="76"> Red Light</label>
@@ -770,43 +830,7 @@ h3 {
   </div>
 </div>
 </div>
-<!-- Modal Wajib Baca -->
-<div id="mustReadModal" class="popup-modal">
-  <div class="popup-content">
-    <div style="margin-top:10px; padding:15px; background:#f9f9f9; border:1px solid #ddd; border-radius:5px; font-size:14px; color:#555;">
-      <ul style="list-style:none; padding:0; margin:0;">
-        <li style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
-          <i class="fa-solid fa-keyboard" style="color:#007bff; width:20px; flex-shrink:0;"></i>
-          <span>Masukkan teks pada kolom <strong>LED Text</strong>.</span>
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
-          <i class="fa-solid fa-magic" style="color:#28a745; width:20px; flex-shrink:0;"></i>
-          <span>Pilih <strong>Efek</strong> untuk animasi teks.</span>
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
-          <i class="fa-solid fa-font" style="color:#ffc107; width:20px; flex-shrink:0;"></i>
-          <span>Tentukan <strong>Huruf, Kecepatan, dan Kecerahan</strong> sesuai kebutuhan.</span>
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
-          <i class="fa-solid fa-tv" style="color:#17a2b8; width:20px; flex-shrink:0;"></i>
-          <span>Pilih <strong>Mode Tampilan</strong> dan <strong>Mode Lampu Belakang</strong>.</span>
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
-          <i class="fa-solid fa-film" style="color:#fd7e14; width:20px; flex-shrink:0;"></i>
-          <span>Centang animasi yang ingin ditampilkan.</span>
-        </li>
-        <li style="display:flex; align-items:flex-start; gap:8px; margin-bottom:8px;">
-          <i class="fa-solid fa-check" style="color:#dc3545; width:20px; flex-shrink:0;"></i>
-          <span>Tekan <strong>Terapkan</strong> untuk melihat hasil di layar.</span>
-        </li>
-      </ul>
-    </div>
-    <div style="margin-top:15px; display:flex; justify-content:center; gap:15px;">
-      <button id="agreeBtn" style="padding:10px 20px; border:none; border-radius:8px; background:#28a745; color:#fff; font-weight:bold; cursor:pointer;">Setuju</button>
-      <button id="declineBtn" style="padding:10px 20px; border:none; border-radius:8px; background:#dc3545; color:#fff; font-weight:bold; cursor:pointer;">Tidak</button>
-    </div>
-  </div>
-</div>
+
 <div class="btn-row">
 <button class="btn apply" onclick="updateDisplay()"><i class="fa-solid fa-check"></i>Terapkan</button>
 </div>
@@ -854,7 +878,7 @@ h3 {
     </div>
 
     <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:8px; background:#f0f7ff;">
-      <i class="fa-solid fa-shield-check" style="color:#3f51b5; font-size:24px;"></i>
+      <i class="fa-solid fa-shield-alt" style="color:#3f51b5; font-size:24px;"></i>
       <span>Perangkat akan <b>memvalidasi data</b> dan menyimpan konfigurasi WiFi.</span>
     </div>
 
@@ -915,59 +939,138 @@ h3 {
   </div>
 </div>
 
-  <!-- WIFI -->
-  <div class="kategori">
-    <h3>Manajemen WiFi</h3>
-    <div class="animGrid info-list">
-
-      <div class="info-item">
-        <span class="info-icon">📡</span>
-        <span class="info-text">Pengaturan SSID dan Password Access Point</span>
-      </div>
-
-      <div class="info-item">
-        <span class="info-icon">🔐</span>
-        <span class="info-text">Validasi password minimal 8 karakter</span>
-      </div>
-
-      <div class="info-item">
-        <span class="info-icon">🔄</span>
-        <span class="info-text">Restart Access Point otomatis setelah update</span>
-      </div>
-
-      <div class="info-item">
-        <span class="info-icon">💾</span>
-        <span class="info-text">Konfigurasi WiFi disimpan ke memori</span>
-      </div>
-
+<!-- SPESIFIKASI ESP-12 -->
+<div class="kategori">
+  <h3> ESP-12</h3>
+  <div class="animGrid info-list">
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-microchip"></i></span>
+      <span class="info-text">Chipset : ESP8266EX (32-bit Tensilica L106)</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-gauge-high"></i></span>
+      <span class="info-text">Kecepatan CPU : 80 MHz (hingga 160 MHz)</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-wifi"></i></span>
+      <span class="info-text">WiFi : 802.11 b/g/n (2.4 GHz)</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-memory"></i></span>
+      <span class="info-text">Flash : 4 MB (SPI Flash)</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-bolt"></i></span>
+      <span class="info-text">Tegangan Kerja : 3.0 – 3.6 V (3.3 V)</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-code-branch"></i></span>
+      <span class="info-text">GPIO : Hingga 11 pin (tergantung konfigurasi)</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-temperature-half"></i></span>
+      <span class="info-text">Suhu Operasi : −40°C hingga +125°C</span>
     </div>
   </div>
+</div>
+<!-- BILL OF MATERIAL -->
+<div class="kategori">
+  <h3> Bill Of Material</h3>
+
+  <div class="animGrid info-list">
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-microchip"></i></span>
+      <span class="info-text">ESP-12F (ESP8266) — 1 pcs</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-grip-lines"></i></span>
+      <span class="info-text">Resistor Array 4K7 — 2 pcs</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-bolt"></i></span>
+      <span class="info-text">AMS1117 3.3V — 1 pcs</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-link"></i></span>
+      <span class="info-text">Optocoupler PC817 — 3 pcs</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-down-long"></i></span>
+      <span class="info-text">Step-down 5V — 1 pcs</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-plug"></i></span>
+      <span class="info-text">Kabel Jumper — 8 pcs</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-layer-group"></i></span>
+      <span class="info-text">PCB — 1 pcs</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-table-cells"></i></span>
+      <span class="info-text">LED Matrix — 4 pcs</span>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- WIFI -->
+<div class="kategori">
+  <h3>Manajemen WiFi</h3>
+
+  <div class="animGrid info-list">
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-broadcast-tower"></i></span>
+      <span class="info-text">Pengaturan SSID dan Password Access Point</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-lock"></i></span>
+      <span class="info-text">Validasi password minimal 8 karakter</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-rotate"></i></span>
+      <span class="info-text">Restart Access Point otomatis setelah update</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-floppy-disk"></i></span>
+      <span class="info-text">Konfigurasi WiFi disimpan ke memori</span>
+    </div>
+  </div>
+</div>
+
 
   <!-- FIRMWARE -->
   <div class="kategori">
     <h3>Firmware & Sistem</h3>
     <div class="animGrid info-list">
-
-      <div class="info-item">
-        <span class="info-icon">⚙</span>
-        <span class="info-text">Pembaruan firmware melalui browser (.bin)</span>
-      </div>
-
-      <div class="info-item">
-        <span class="info-icon">📁</span>
-        <span class="info-text">Upload SPIFFS melalui Web UI</span>
-      </div>
-
-      <div class="info-item">
-        <span class="info-icon">📊</span>
-        <span class="info-text">Progress upload ditampilkan secara real-time</span>
-      </div>
-
-      <div class="info-item">
-        <span class="info-icon">🔁</span>
-        <span class="info-text">Perangkat restart otomatis setelah update</span>
-      </div>
-
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-gears"></i></span>
+      <span class="info-text">Pembaruan firmware melalui browser (.bin)</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-folder-open"></i></span>
+      <span class="info-text">Upload SPIFFS melalui Web UI</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-chart-line"></i></span>
+      <span class="info-text">Progress upload ditampilkan secara real-time</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-rotate"></i></span>
+      <span class="info-text">Perangkat restart otomatis setelah update</span>
+    </div>
     </div>
   </div>
 
@@ -1010,34 +1113,233 @@ h3 {
     <h3>Informasi Teknis</h3>
     <div class="animGrid info-list">
 
-      <div class="info-item">
-        <span class="info-icon">🔧</span>
-        <span class="info-text">Mikrokontroler : ESP8266 (NodeMCU / ESP-12)</span>
-      </div>
+<div class="info-item">
+  <span class="info-icon"><i class="fa-solid fa-microchip"></i></span>
+  <span class="info-text">Mikrokontroler : ESP8266 (NodeMCU / ESP-12)</span>
+</div>
 
-      <div class="info-item">
-        <span class="info-icon">💡</span>
-        <span class="info-text">Output : LED Matrix dan Panel Lampu</span>
-      </div>
+<div class="info-item">
+  <span class="info-icon"><i class="fa-solid fa-lightbulb"></i></span>
+  <span class="info-text">Output : LED Matrix dan Panel Lampu</span>
+</div>
 
-      <div class="info-item">
-        <span class="info-icon">🌐</span>
-        <span class="info-text">Antarmuka : HTML, CSS, dan JavaScript</span>
-      </div>
+<div class="info-item">
+  <span class="info-icon"><i class="fa-solid fa-code"></i></span>
+  <span class="info-text">Antarmuka : HTML, CSS, dan JavaScript</span>
+</div>
 
-      <div class="info-item">
-        <span class="info-icon">📡</span>
-        <span class="info-text">Web Server : Async Web Server</span>
-      </div>
+<div class="info-item">
+  <span class="info-icon"><i class="fa-solid fa-server"></i></span>
+  <span class="info-text">Web Server : Async Web Server</span>
+</div>
 
-      <div class="info-item">
-        <span class="info-icon">💾</span>
-        <span class="info-text">Penyimpanan : SPIFFS</span>
-      </div>
+<div class="info-item">
+  <span class="info-icon"><i class="fa-solid fa-database"></i></span>
+  <span class="info-text">Penyimpanan : SPIFFS</span>
+</div>
 
     </div>
   </div>
 
+<!-- KONFIGURASI HARDWARE -->
+<div class="kategori">
+  <h3>Konfigurasi Hardware</h3>
+
+  <div class="animGrid info-list">
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-layer-group"></i></span>
+      <span class="info-text">Tipe LED Matrix : (MAX7219)</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-cubes"></i></span>
+      <span class="info-text">Jumlah LED Matrix : 4 unit</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-wave-square"></i></span>
+      <span class="info-text">CLK : GPIO14</span>
+    </div>
+
+        <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-arrow-right"></i></span>
+      <span class="info-text">SEN kanan : GPIO5</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-bullseye"></i></span>
+      <span class="info-text">CS : GPIO15</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-arrow-left"></i></span>
+      <span class="info-text">SEN kiri : GPIO12</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-right-left"></i></span>
+      <span class="info-text">DIN : GPIO13</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-hand"></i></span>
+      <span class="info-text">Rem / Stop : GPIO4</span>
+    </div>
+
+  </div>
+</div>
+<!-- LIBRARY -->
+<div class="kategori">
+  <h3>Library</h3>
+
+  <div class="animGrid info-list">
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-film"></i></span>
+      <span class="info-text">MD_Parola</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-border-all"></i></span>
+      <span class="info-text">MD_MAX72xx</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-shuffle"></i></span>
+      <span class="info-text">SPI</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-font"></i></span>
+      <span class="info-text">Parola_Fonts_data</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-wifi"></i></span>
+      <span class="info-text">ESP8266WiFi</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-bolt"></i></span>
+      <span class="info-text">ESPAsyncTCP</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-globe"></i></span>
+      <span class="info-text">ESPAsyncWebServer</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-memory"></i></span>
+      <span class="info-text">EEPROM</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-rotate"></i></span>
+      <span class="info-text">Updater</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-folder-open"></i></span>
+      <span class="info-text">SPIFFS</span>
+    </div>
+
+  </div>
+</div>
+<!-- STRUKTUR KODE -->
+<div class="kategori">
+  <h3>Struktur Kode</h3>
+
+  <div class="animGrid info-list">
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-book"></i></span>
+      <span class="info-text">Library</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-microchip"></i></span>
+      <span class="info-text">Konfigurasi Hardware</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-play"></i></span>
+      <span class="info-text">Inisialisasi Sistem</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-box"></i></span>
+      <span class="info-text">Variabel Utama</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-layer-group"></i></span>
+      <span class="info-text">Array Animasi</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-text-height"></i></span>
+      <span class="info-text">Text Effect</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-eye"></i></span>
+      <span class="info-text">Status Monitor</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-code"></i></span>
+      <span class="info-text">Deklarasi Fungsi</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-display"></i></span>
+      <span class="info-text">Fungsi Display</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-server"></i></span>
+      <span class="info-text">Server</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-database"></i></span>
+      <span class="info-text">Persistensi</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+      <span class="info-text">Animasi</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-rotate"></i></span>
+      <span class="info-text">runAnimation</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-globe"></i></span>
+      <span class="info-text">Web UI</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-sliders"></i></span>
+      <span class="info-text">Setup</span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-icon"><i class="fa-solid fa-infinity"></i></span>
+      <span class="info-text">Loop</span>
+    </div>
+
+  </div>
+</div>
+
+
+
+    </div>
+  </div>
 </div>
 
 
@@ -1227,25 +1529,6 @@ function closeAlert() {
     const total = document.querySelectorAll('.animItem').length;
     document.getElementById('animCount').textContent = `(Total animasi: ${total})`;}
     window.addEventListener('DOMContentLoaded', updateAnimCount);
-  /*readme*/
-const modal = document.getElementById('mustReadModal');
-const agreeBtn = document.getElementById('agreeBtn');
-const declineBtn = document.getElementById('declineBtn');
-
-// Modal selalu tampil saat halaman dibuka
-modal.style.display = 'flex';
-
-agreeBtn.addEventListener('click', () => {
-  // Bisa tetap simpan di localStorage kalau mau
-  localStorage.setItem('userAgreed', 'true'); 
-  modal.style.display = 'none'; // tutup modal saat setuju
-});
-
-declineBtn.addEventListener('click', () => {
-  alert('Anda harus membaca petunjuk terlebih dahulu untuk melanjutkan.');
-  // Bisa tambah aksi lain, misal reload atau redirect
-});
-
     /*Perintah upload firmware*/
 function uploadFirmware(){
   const fileInput = document.getElementById("firmware");
@@ -1468,5 +1751,4 @@ function updateWiFi(){
 window.onload = loadCurrentSettings;
 </script>
 </body>
-
 </html>
