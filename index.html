@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
-
-
+<link rel="stylesheet" href="/Stop_Lamp_1x4_Panel/data/css/all.min.css">
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,13 +10,47 @@
 *{box-sizing:border-box;margin:0;padding:0;font-size: 13px;font-family: 'Avenir', 'Helvetica Neue', 'SF Pro', system-ui, sans-serif;
 }
 body{background:#f4f4f9;color:#000;}
-header {position: fixed;top: 0;left: 0;right: 0;background: #222;color: #fff;padding: 5px;text-align: center;font-size: 20px;font-weight: 700;letter-spacing: 1px;z-index: 100;border-bottom: 
+header {position: fixed;top: 0;left: 0;right: 0;background: #222;color: #fff;padding: 5px;text-align: center;font-size: 20px;font-weight: 8700;letter-spacing: 1px;z-index: 100;border-bottom: 
   3px solid #ff0000;}
 footer{position:fixed;bottom:0;left:0;right:0;background:#222;color:#fff;padding:5px;text-align:center;font-weight:700;border-top: 
   2px solid #ff0000;border-bottom: 2px solid #ff0000;}
 main{padding:40px 20px 20px 20px;max-width:450px;margin:auto;}
 .card{background:#fff;padding:10px;border-radius:20px;box-shadow:0 2px 5px rgba(0,0,0,0.1);margin-bottom:20px;min-height:auto;display:flex;flex-direction:column;justify-content:flex-start;}
-input[type=text], input[type=number], select, input[type=password]{padding:10px;border-radius:5px;border:1px solid #ccc;font-size:16px;width:100%;margin-top:5px;}
+input[type=text],
+input[type=number],
+input[type=password],
+select {
+    padding: 10px 10px;          /* Lebih nyaman untuk diketik */
+    border-radius: 10px;          /* Rounded lebih modern */
+    border: 1px solid #ddd;      /* Warna border lebih lembut */
+    font-size: 12px;
+    width: 100%;
+    margin-top: 8px;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;   /* Smooth hover/focus effect */
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); /* subtle shadow */
+}
+
+input[type=text]:focus,
+input[type=number]:focus,
+input[type=password]:focus,
+select:focus {
+    border-color: #4a90e2;       /* Warna biru lembut saat focus */
+    box-shadow: 0 2px 6px rgba(74,144,226,0.3);
+    background-color: #fefefe;   /* Sedikit highlight */
+}
+
+select {
+    appearance: none;            /* Buang default arrow bawaan browser */
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    padding-right: 36px;         /* Space untuk arrow */
+    cursor: pointer;
+}
+
 button {
   padding: 8px 12px; /* lebih nyaman untuk klik */
   background: linear-gradient(145deg, #686868, #535353);
@@ -32,7 +64,6 @@ button {
   transition: all 0.3s ease;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
 }
-
 button:hover {
   background: linear-gradient(145deg, #ffffff);
   color: #0f0f0f;
@@ -483,10 +514,17 @@ h3 {
     font-size:12px;
   }
 }
+.display-modes input[type="radio"] {
+  accent-color: #0b9b23; /* warna centang */
+}
 
+.display-modes label:hover {
+  background: #f0f0f0;
+}
 </style>
 </head>
 <body>
+  
 <div id="customAlert" class="alert-modal">
   <div class="alert-box">
     <span id="alertMessage">Pesan alert</span>
@@ -548,45 +586,52 @@ h3 {
           </select>
           </div>
 
-<div class="flex-container" style="margin-top:15px; display:flex; gap:10px; box-sizing:border-box;">
-  <div class="flex-item" style="flex:1; display:flex; flex-direction:column; box-sizing:border-box;">
-    <label for="font" class="form-label">
-      <i class="fa-solid fa-font"></i> Huruf
+<div class="flex-container" style="margin-top:15px; display:flex; gap:10px; box-sizing:border-box; flex-wrap:wrap;">
+  <div class="flex-item" style="flex:1; min-width:120px; display:flex; flex-direction:column; box-sizing:border-box;">
+    <label for="fontSlider" class="form-label">
+      <i class="fa-solid fa-font"></i> Pilihan Huruf
     </label>
-    <select id="font">
-      <option value="0">Tipis</option>
-      <option value="1">Tebal</option>
-      <option value="2">Sangat Tebal</option>
-    </select>
+    <input type="range" id="fontSlider" min="0" max="2" step="1" value="0" oninput="updateFontLabel(this.value)">
+    <span id="fontLabel" style="text-align:center;">Tipis</span>
   </div>
-
-  <div class="flex-item" style="flex:1; display:flex; flex-direction:column; box-sizing:border-box;">
+  <div class="flex-item" style="flex:1; min-width:120px; display:flex; flex-direction:column; box-sizing:border-box;">
     <label for="speed">
-      <i class="fa-solid fa-rocket"></i> Kecepatan (0–15)
+      <i class="fa-solid fa-rocket"></i> Kecepatan
     </label>
-    <input type="number" id="speed" min="0" max="15" placeholder="Misal 5">
+    <input type="range" id="speed" min="0" max="15" step="1" value="5" oninput="speedValue.innerText = this.value;">
+    <span id="speedValue" style="text-align:center;">5</span>
   </div>
-
-  <div class="flex-item" style="flex:1; display:flex; flex-direction:column; box-sizing:border-box;">
+  <div class="flex-item" style="flex:1; min-width:120px; display:flex; flex-direction:column; box-sizing:border-box;">
     <label for="intensity">
-      <i class="fa-solid fa-sun"></i> Kecerahan (0–15)
+      <i class="fa-solid fa-sun"></i> Kecerahan
     </label>
-    <input type="number" id="intensity" min="0" max="15" placeholder="Misal 5">
+    <input type="range" id="intensity" min="0" max="15" step="1" value="5" oninput="intensityValue.innerText = this.value;">
+    <span id="intensityValue" style="text-align:center;">5</span>
   </div>
 </div>
-
-
-
 
 <div style="margin-top:15px;">
   <h3 class="section-title">
-  <i class="fa-solid fa-tv"></i><label for="displayMode"> Mode Tampilan</label></h3>
-  <select id="displayMode">
-    <option value="0">Teks saja</option>
-    <option value="1">Teks + Animasi</option>
-    <option value="2">Animasi saja</option>
-  </select>
+    <i class="fa-solid fa-tv"></i> Mode Tampilan
+  </h3>
+  <div class="display-modes" style="display:flex; gap:15px; margin-top:8px;">
+    <label title="Hanya menampilkan teks" style="display:flex; align-items:center; gap:6px; cursor:pointer; padding:5px 8px; border:none; border-radius:6px; transition:0.2s;">
+      <input type="radio" name="displayMode" value="0" checked required>
+      <i class="fa-solid fa-font"></i> Teks saja
+    </label>
+
+    <label title="Menampilkan teks + animasi" style="display:flex; align-items:center; gap:6px; cursor:pointer; padding:5px 8px; border:none; border-radius:6px; transition:0.2s;">
+      <input type="radio" name="displayMode" value="1" required>
+      <i class="fa-solid fa-font"></i> + <i class="fa-solid fa-film"></i> Teks & Animasi
+    </label>
+
+    <label title="Hanya menampilkan animasi" style="display:flex; align-items:center; gap:6px; cursor:pointer; padding:5px 8px; border:none; border-radius:6px; transition:0.2s;">
+      <input type="radio" name="displayMode" value="2" required>
+      <i class="fa-solid fa-film"></i> Animasi saja
+    </label>
+  </div>
 </div>
+
 
 <div style="margin-top:15px;">
   <h3 class="section-title">
@@ -594,7 +639,7 @@ h3 {
   <div class="flex">
     <!-- SEN KIRI -->
     <div>
-      <label for="rearLeft">Kiri</label>
+      <label for="rearLeft">SEN Kiri</label>
       <select id="rearLeft">
         <option value="1">Panah Kiri</option>
         <option value="2">Panah Kanan</option>
@@ -660,7 +705,7 @@ h3 {
 
     <!-- SEN KANAN -->
     <div>
-      <label for="rearRight">Kanan</label>
+      <label for="rearRight">SEN Kanan</label>
       <select id="rearRight">
         <option value="1">Panah Kiri</option>
         <option value="2">Panah Kanan</option>
@@ -1525,6 +1570,11 @@ function showAlert(message, type = "info") {
 function closeAlert() {
   document.getElementById("customAlert").style.display = "none";
 }
+/*slider font*/
+  const fontNames = ["Tipis", "Tebal", "Sangat Tebal"];
+  function updateFontLabel(value) {
+    document.getElementById("fontLabel").innerText = fontNames[value];
+  }
   /*Penghitung jumlah animasi*/
     function updateAnimCount() {
     const total = document.querySelectorAll('.animItem').length;
@@ -1753,5 +1803,3 @@ window.onload = loadCurrentSettings;
 </script>
 </body>
 </html>
-
-
